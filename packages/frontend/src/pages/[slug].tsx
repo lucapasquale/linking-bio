@@ -12,7 +12,11 @@ export default function Page() {
 
   const { loading, data } = usePageQuery({ slug: router.query.slug as string })
   if (loading || !data) {
-    return null
+    return (
+      <Head>
+        <title>Linking Bio</title>
+      </Head>
+    )
   }
 
   if (!data.page) {
