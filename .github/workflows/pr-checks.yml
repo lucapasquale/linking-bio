@@ -9,13 +9,9 @@ jobs:
         with:
           service-account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           project-id: ${{ secrets.GCP_PROJECT_ID }}
-          config-files: './app.yml'
-          # Optional
-          service-version: 3                          #default value : ""
-          delete-previous-versions: true              #default value : false
-          service-name: ${{ secrets.SERVICE_NAME }}   #default value : default
-          no-cache: false                             #default value : false
-          debug: false                                #default value : false
+          config-files: './packages/backend/app.yml'
+          delete-previous-versions: true
+          debug: true
 
   # lint:
   #   name: Lint
