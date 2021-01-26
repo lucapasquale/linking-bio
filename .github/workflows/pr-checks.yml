@@ -23,6 +23,9 @@ jobs:
           gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
           cd packages/backend
+          echo ${{ secrets.GCP_ENV_VARS }} > .env
+          ls
+          cat .env
           gcloud app deploy app.yaml --promote
 
   # deploy-backend:
