@@ -1,6 +1,28 @@
 name: PR Checks
 on: pull_request
 jobs:
+  deploy-backend-2:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: zxyle/publish-gae-action@master
+        name: Initialize Google Cloud SDK
+        with:
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          # An optional variables parameter can be used
+          # gae_variables: ${{ secrets.GAE_VARIABLES }}
+
+      - name: Publish app to Google App Engine
+        run: |
+          # This client-secret.json is converted by GCP_SERVICE_ACCOUNT.
+          ls
+          gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
+          gcloud config set project ${{ secrets.PROJECT_ID }}
+          gcloud -q app deploy app.yaml --promote
+
   deploy-backend:
     name: Deploy to Google App Engine
     runs-on: ubuntu-latest
