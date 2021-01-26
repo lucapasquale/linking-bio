@@ -1,3 +1,5 @@
 runtime: nodejs12
 
-env_variables: PORT: 8080
+env_variables:
+  NODE_ENV: production
+  PORT: 8080
