@@ -5,8 +5,8 @@ import { UpdateProfileInput, UpdateProfileSocialsInput } from './update-profile.
 
 export function upsertSocialLinks(social: UpdateProfileInput['social']): SocialLink[] {
   return social
-    .filter(input => !!input.value)
-    .map(socialInput => ({
+    .filter((input) => !!input.value)
+    .map((socialInput) => ({
       kind: socialInput.kind,
       ...getUrlUsername(socialInput),
     }))

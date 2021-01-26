@@ -44,9 +44,6 @@ export class Page {
   @Column()
   userId: string
 
-  @OneToMany(
-    () => Link,
-    link => link.page
-  )
+  @OneToMany(() => Link, (link) => link.page)
   links: Link[]
 }
