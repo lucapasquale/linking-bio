@@ -3,6 +3,7 @@ on: pull_request
 jobs:
   deploy-backend:
     name: Deploy to Google App Engine
+    runs-on: ubuntu-latest
     steps:
       - uses: etereo-io/deploy-gae-action
         with:
