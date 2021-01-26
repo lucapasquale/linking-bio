@@ -10,21 +10,12 @@ jobs:
         with:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
-      - uses: zxyle/publish-gae-action@master
-        name: Initialize Google Cloud SDK
+      - uses: akhileshns/heroku-deploy@v3.8.9
         with:
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          gae_config_path: './packages/backend/app.yaml'
-
-      - run: yarn install
-      - run: cd packages/backend && yarn build
-      - run: |
-          gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
-          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-          cd packages/backend
-          gcloud app deploy app.yaml --promote
+          heroku_app_name: "linking-bio-backend"
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          appdir: "packages/backend"
 
   # deploy-backend:
   #   name: Deploy to Google App Engine
