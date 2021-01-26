@@ -11,7 +11,6 @@ jobs:
           project-id: ${{ secrets.GCP_PROJECT_ID }}
           config-files: './packages/backend/app.yml'
           no-cache: true
-          debug: true
 
   # lint:
   #   name: Lint
