@@ -2,6 +2,7 @@ name: PR Checks
 on: pull_request
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,6 +13,7 @@ jobs:
       - run: yarn workspaces run lint
 
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,6 +24,7 @@ jobs:
       - run: yarn workspaces run build
 
   test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
