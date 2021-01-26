@@ -1,35 +1,45 @@
 name: PR Checks
 on: pull_request
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
+  deploy-backend:
+    name: Deploy to Google App Engine
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: etereo-io/deploy-gae-action
         with:
-          node-version: '12'
-      - run: yarn install
-      - run: yarn workspaces run lint
+          debug: true
+          service_account:  ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          project_id: ${{ secrets.PROJECT_ID }}
+          gae_config_path: './packages/backend/app.yaml'
 
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-      - run: yarn install
-      - run: yarn workspaces run build
+  # lint:
+  #   name: Lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '12'
+  #     - run: yarn install
+  #     - run: yarn workspaces run lint
 
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-      - run: yarn install
-      - run: yarn workspaces run test
+  # build:
+  #   name: Build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '12'
+  #     - run: yarn install
+  #     - run: yarn workspaces run build
+
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '12'
+  #     - run: yarn install
+  #     - run: yarn workspaces run test
