@@ -1,29 +1,26 @@
-import { Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
+import { Page } from '@prisma/client'
 
-import { Page } from './entities/page.entity'
+import { PrismaService } from '../common/prisma.service'
 
 export class PagesService {
-  @InjectRepository(Page)
-  private pageRepo: Repository<Page>
+  constructor(private prisma: PrismaService) {}
 
   async findOneBySlug(slug: string) {
-    return this.pageRepo.findOne({ slug })
+    return this.prisma.page.findUnique({ where: { slug } })
   }
 
   async findOneByUserId(userId: string) {
-    return this.pageRepo.findOne({ userId })
+    return this.prisma.page.findUnique({ where: { userId } })
   }
 
-  async create(page: Partial<Page>) {
-    return this.pageRepo.save(page)
+  async create(page: Pick<Page, 'slug' | 'userId'>) {
+    return this.prisma.page.create({ data: { ...page } })
   }
 
   async update(page: Page, payload: Partial<Page>) {
-    await this.pageRepo.update(page.id, {
-      ...payload,
+    return this.prisma.page.update({
+      where: { id: page.id },
+      data: { ...payload },
     })
-
-    return this.pageRepo.findOne(page.id)
   }
 }

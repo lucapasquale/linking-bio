@@ -1,9 +1,9 @@
 import * as uuid from 'uuid'
+import { User } from '@prisma/client'
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Mutation, Args, ObjectType, Field, InputType } from '@nestjs/graphql'
 
 import { CurrentUser } from '~users/graphql/current-user.decorator'
-import { User } from '~users/entities/user.entity'
 import { UsersService } from '~users/users.service'
 
 import { AuthService } from '../auth.service'

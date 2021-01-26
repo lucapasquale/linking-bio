@@ -1,25 +1,25 @@
+import { User } from '@prisma/client'
 import { Resolver, Mutation, Args, Field, ID, ObjectType } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
-import { User } from '~users/entities/user.entity'
-import { Page } from '~pages/entities/page.entity'
 import { PagesService } from '~pages/pages.service'
 
-import { Link } from '../entities/link.entity'
+import { LinkType } from './types/link.type'
 import { LinksService } from '../links.service'
+import { PageType } from '../../graphql/types/page.type'
 
 @ObjectType()
 class RemoveLinkResponse {
-  @Field(() => Page)
-  page: Page
+  @Field(() => PageType)
+  page: PageType
 
-  @Field(() => Link)
-  link: Link
+  @Field(() => LinkType)
+  link: LinkType
 }
 
-@Resolver(() => Page)
+@Resolver(() => PageType)
 export class RemoveLinksResolver {
   constructor(private pagesService: PagesService, private linksService: LinksService) {}
 

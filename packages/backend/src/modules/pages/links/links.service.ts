@@ -1,36 +1,34 @@
-import { Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
+import { Link } from '@prisma/client'
 
-import { Link } from './entities/link.entity'
+import { PrismaService } from '~common/prisma.service'
 
 export class LinksService {
-  @InjectRepository(Link)
-  private linkRepo: Repository<Link>
+  constructor(private prisma: PrismaService) {}
 
-  async findOne(linkId: string) {
-    return this.linkRepo.findOne(linkId)
+  async findOne(id: string) {
+    console.log('this', this.prisma)
+    return this.prisma.link.findUnique({ where: { id } })
   }
 
   async findFromPage(pageId: string) {
-    return this.linkRepo.find({
+    return this.prisma.link.findMany({
       where: { pageId },
-      order: { sortOrder: 'ASC', createdAt: 'ASC' },
+      orderBy: { sortOrder: 'asc', createdAt: 'desc' },
     })
   }
 
-  async insertLink(pageId: string, link: Partial<Link>) {
-    return this.linkRepo.save({ ...link, pageId })
+  async insertLink(link: Pick<Link, 'pageId' | 'title' | 'url' | 'sortOrder'>) {
+    return this.prisma.link.create({ data: link })
   }
 
   async updateLink(link: Link, payload: Partial<Link>) {
-    await this.linkRepo.update(link.id, {
-      ...payload,
+    return this.prisma.link.update({
+      where: { id: link.id },
+      data: { ...payload },
     })
-
-    return this.findOne(link.id)
   }
 
-  async deleteLink(linkId: string) {
-    return this.linkRepo.delete(linkId)
+  async deleteLink(id: string) {
+    return this.prisma.link.delete({ where: { id } })
   }
 }

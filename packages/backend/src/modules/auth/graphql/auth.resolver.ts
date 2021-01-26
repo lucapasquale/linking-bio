@@ -72,10 +72,10 @@ export class AuthResolver {
 
     const [{ accessToken, refreshToken }] = await Promise.all([
       this.authService.generateTokens(user),
-      this.pagesService.create({ slug, user }),
+      this.pagesService.create({ slug, userId: user.id }),
     ])
 
-    return { token: accessToken, accessToken, refreshToken }
+    return { accessToken, refreshToken }
   }
 
   @Mutation(() => LoginResponse)
@@ -83,7 +83,6 @@ export class AuthResolver {
     const user = await this.authService.login(email, password)
 
     const { accessToken, refreshToken } = await this.authService.generateTokens(user)
-
-    return { token: accessToken, accessToken, refreshToken }
+    return { accessToken, refreshToken }
   }
 }

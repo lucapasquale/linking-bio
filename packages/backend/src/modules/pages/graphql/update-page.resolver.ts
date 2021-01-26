@@ -1,13 +1,13 @@
+import { User } from '@prisma/client'
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Args, Field, ObjectType, Mutation, InputType } from '@nestjs/graphql'
 
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
-import { User } from '~users/entities/user.entity'
 
 import { PagesService } from '../pages.service'
-import { Page } from '../entities/page.entity'
 import { PageTheme } from '../enums/page-theme.enum'
+import { PageType } from './types/page.type'
 
 @InputType()
 class UpdatePageInput {
@@ -17,8 +17,8 @@ class UpdatePageInput {
 
 @ObjectType()
 class UpdatePageResponse {
-  @Field(() => Page)
-  page: Page
+  @Field(() => PageType)
+  page: PageType
 }
 
 @Resolver()
