@@ -1,24 +1,27 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
+  extends: [
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier',
+  ],
+  plugins: ['react-hooks'],
+  rules: {
+    'react/prop-types': 0,
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/member-delimiter-style': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
+    'react/no-unescaped-entities': 0,
+  },
   parserOptions: {
-    project: 'tsconfig.json',
+    ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-  ],
-  root: true,
-  env: {
-    node: true,
-    jest: true,
-  },
-  rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 }
