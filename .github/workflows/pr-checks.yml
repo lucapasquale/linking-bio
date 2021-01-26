@@ -9,8 +9,7 @@ jobs:
         with:
           service-account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           project-id: ${{ secrets.GCP_PROJECT_ID }}
-          config-files: './packages/backend/app.yml'
-          no-cache: true
+          config-files: './packages/backend/app.yaml'
 
   # lint:
   #   name: Lint
