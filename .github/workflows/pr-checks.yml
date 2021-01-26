@@ -12,6 +12,7 @@ jobs:
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+          gae_config_path: './packages/backend/app.yaml'
           # An optional variables parameter can be used
           # gae_variables: ${{ secrets.GAE_VARIABLES }}
 
@@ -23,16 +24,16 @@ jobs:
           gcloud config set project ${{ secrets.PROJECT_ID }}
           gcloud -q app deploy app.yaml --promote
 
-  deploy-backend:
-    name: Deploy to Google App Engine
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: vijayp23/deploy-gae-action@1.0.1
-        with:
-          service-account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          project-id: ${{ secrets.GCP_PROJECT_ID }}
-          config-files: './packages/backend/app.yaml'
+  # deploy-backend:
+  #   name: Deploy to Google App Engine
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: vijayp23/deploy-gae-action@1.0.1
+  #       with:
+  #         service-account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+  #         project-id: ${{ secrets.GCP_PROJECT_ID }}
+  #         config-files: './packages/backend/app.yaml'
 
   # lint:
   #   name: Lint
