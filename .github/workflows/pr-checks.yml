@@ -9,6 +9,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+      - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
       - run: yarn workspaces run lint
 
@@ -20,6 +21,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+      - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
       - run: yarn workspaces run build
 
@@ -31,5 +33,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
+      - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
       - run: yarn workspaces run test
