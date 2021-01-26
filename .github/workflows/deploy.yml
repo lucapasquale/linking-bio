@@ -6,6 +6,7 @@ on: [pull_request]
 #       - main
 jobs:
   lint-build-test:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -17,7 +18,7 @@ jobs:
       - run: yarn test
 
   # deploy:
-  #   needs: [test]
+  #   needs: [lint-build-test]
   #   runs-on: ubuntu-latest
   #   steps:
   #     - uses: actions/checkout@v2
