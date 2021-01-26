@@ -18,11 +18,11 @@ jobs:
 
       - name: Publish app to Google App Engine
         run: |
-          # This client-secret.json is converted by GCP_SERVICE_ACCOUNT.
-          ls
           gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-          gcloud -q app deploy packages/backend/app.yaml --promote
+          cd packages/backend
+          ls
+          gcloud -q app deploy app.yaml --promote
 
   # deploy-backend:
   #   name: Deploy to Google App Engine
