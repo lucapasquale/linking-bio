@@ -1,0 +1,124 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type SocialLink {
+  kind: SocialLinkKind!
+  username: String!
+  url: String!
+}
+
+enum SocialLinkKind {
+  INSTAGRAM
+  TWITTER
+  FACEBOOK
+}
+
+type User {
+  id: ID!
+  social: [SocialLink!]!
+  page: Page!
+}
+
+type Page {
+  slug: String!
+  backgroundUrl: String
+  owner: Owner!
+  links: [Link!]!
+}
+
+type Link {
+  id: ID!
+  title: String!
+  url: String!
+}
+
+type Owner {
+  name: String!
+  avatarUrl: String
+  social: [SocialLink!]!
+}
+
+type LinkResponse {
+  page: Page!
+  link: Link!
+}
+
+type UpdateProfileResponse {
+  page: Page!
+  user: User!
+}
+
+type SignupResponse {
+  token: String!
+}
+
+type LoginResponse {
+  token: String!
+}
+
+type ChangePasswordResponse {
+  success: Boolean!
+}
+
+type ForgotPasswordResponse {
+  success: Boolean!
+}
+
+type RecoverPasswordResponse {
+  token: String!
+}
+
+type UploadImageResponse {
+  slug: String!
+}
+
+type Query {
+  page(slug: String!): Page
+  user: User!
+}
+
+type Mutation {
+  addLink(input: AddLinkInput!): LinkResponse!
+  editLink(input: EditLinkInput!): LinkResponse!
+  removeLink(linkId: ID!): LinkResponse!
+  updateProfile(input: UpdateProfileInput!): UpdateProfileResponse!
+  signup(input: SignupInput!): SignupResponse!
+  login(password: String!, email: String!): LoginResponse!
+  changePassword(password: String!): ChangePasswordResponse!
+  forgotPassword(email: String!): ForgotPasswordResponse!
+  recoverPassword(input: RecoverPasswordInput!): RecoverPasswordResponse!
+  uploadImage(image: String!): UploadImageResponse!
+}
+
+input AddLinkInput {
+  title: String!
+  url: String!
+}
+
+input EditLinkInput {
+  id: ID!
+  title: String
+  url: String
+}
+
+input UpdateProfileInput {
+  avatarUrl: String
+  backgroundUrl: String
+  twitter: String
+  facebook: String
+  instagram: String
+}
+
+input SignupInput {
+  email: String!
+  password: String!
+  slug: String!
+  name: String!
+}
+
+input RecoverPasswordInput {
+  slug: String!
+  newPassword: String!
+  recoveryToken: String!
+}

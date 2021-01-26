@@ -1,0 +1,7 @@
+{
+  "name": "linking-bio",
+  "private": true,
+  "workspaces": [
+    "backend"
+  ]
+}
