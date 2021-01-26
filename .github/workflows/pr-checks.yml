@@ -5,12 +5,17 @@ jobs:
     name: Deploy to Google App Engine
     runs-on: ubuntu-latest
     steps:
-      - uses: 'etereo-io/deploy-gae-action'
+      - uses: vijayp23/deploy-gae-action@1.0.1
         with:
-          debug: true
-          service_account:  ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          project_id: ${{ secrets.PROJECT_ID }}
-          gae_config_path: './packages/backend/app.yaml'
+          service-account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          project-id: ${{ secrets.GCP_PROJECT_ID }}
+          config-files: './app.yml'
+          # Optional
+          service-version: 3                          #default value : ""
+          delete-previous-versions: true              #default value : false
+          service-name: ${{ secrets.SERVICE_NAME }}   #default value : default
+          no-cache: false                             #default value : false
+          debug: false                                #default value : false
 
   # lint:
   #   name: Lint
