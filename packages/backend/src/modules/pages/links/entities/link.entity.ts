@@ -36,10 +36,7 @@ export class Link {
   @Field(() => Int)
   sortOrder: number
 
-  @ManyToOne(
-    () => Page,
-    page => page.links
-  )
+  @ManyToOne(() => Page, (page) => page.links)
   page: Page
   @Index()
   @Column()

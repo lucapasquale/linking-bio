@@ -36,7 +36,7 @@ export class SortLinksResolver {
     }
 
     await Bluebird.map(linkIds, async (linkId, index) => {
-      const link = links.find(link => link.id === linkId)
+      const link = links.find((link) => link.id === linkId)
       await this.linksService.updateLink(link, { sortOrder: index })
     })
 

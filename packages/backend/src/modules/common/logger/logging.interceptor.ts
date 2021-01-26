@@ -21,7 +21,7 @@ export class LoggingInterceptor implements NestInterceptor {
     return next
       .handle()
       .pipe(
-        tap(response => {
+        tap((response) => {
           this.logger.debug({
             msg: `Response: ${req.method} - ${req.originalUrl}`,
             executionTime: Date.now() - now,
@@ -30,7 +30,7 @@ export class LoggingInterceptor implements NestInterceptor {
         })
       )
       .pipe(
-        catchError(error => {
+        catchError((error) => {
           this.logger.error(
             {
               msg: `ResponseError: ${req.method} - ${req.originalUrl}`,
