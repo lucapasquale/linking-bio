@@ -1,8 +1,8 @@
 name: PR Checks
 on: pull_request
 jobs:
-  deploy-backend:
-    name: Deploy Backend
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -10,56 +10,29 @@ jobs:
         with:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
-      - uses: akhileshns/heroku-deploy@v3.8.9
+      - run: yarn install
+      - run: yarn workspaces run lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          heroku_app_name: "linking-bio-backend"
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          appdir: "packages/backend"
+          node-version: '12'
+      - uses: c-hive/gha-yarn-cache@v1
+      - run: yarn install
+      - run: yarn workspaces run build
 
-  # deploy-backend:
-  #   name: Deploy to Google App Engine
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: vijayp23/deploy-gae-action@1.0.1
-  #       with:
-  #         service-account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-  #         project-id: ${{ secrets.GCP_PROJECT_ID }}
-  #         config-files: './packages/backend/app.yaml'
-
-  # lint:
-  #   name: Lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '12'
-      # - uses: c-hive/gha-yarn-cache@v1
-  #     - run: yarn install
-  #     - run: yarn workspaces run lint
-
-  # build:
-  #   name: Build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '12'
-      # - uses: c-hive/gha-yarn-cache@v1
-  #     - run: yarn install
-  #     - run: yarn workspaces run build
-
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '12'
-      # - uses: c-hive/gha-yarn-cache@v1
-  #     - run: yarn install
-  #     - run: yarn workspaces run test
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - uses: c-hive/gha-yarn-cache@v1
+      - run: yarn install
+      - run: yarn workspaces run test
