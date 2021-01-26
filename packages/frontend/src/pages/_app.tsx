@@ -8,6 +8,8 @@ import { ThemeProvider } from '@material-ui/core/styles'
 
 import { theme } from '../helpers/theme'
 import { useApollo } from '../helpers/graphql/apollo-client'
+import { SnackbarAlertContext } from '../helpers/contexts/snackbar'
+import { Snackbar } from '../components/Snackbar'
 
 export default function App({ pageProps, Component }: AppProps) {
   const apolloClient = useApollo(pageProps.initialApolloState)
@@ -22,7 +24,11 @@ export default function App({ pageProps, Component }: AppProps) {
         <CssBaseline />
 
         <ApolloProvider client={apolloClient}>
-          <Component {...pageProps} />
+          <SnackbarAlertContext.Provider>
+            <Component {...pageProps} />
+
+            <Snackbar />
+          </SnackbarAlertContext.Provider>
         </ApolloProvider>
       </ThemeProvider>
     </>
