@@ -1,0 +1,12 @@
+overwrite: true
+schema: "https://linking-bio.rj.r.appspot.com/graphql"
+# schema: "http://localhost:3010/graphql"
+documents:  "src/**/*.ts"
+generates:
+  src/helpers/graphql/generated.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
