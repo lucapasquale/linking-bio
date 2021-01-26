@@ -19,6 +19,7 @@ jobs:
           # An optional variables parameter can be used
           # gae_variables: ${{ secrets.GAE_VARIABLES }}
 
+      - run: yarn install
       - run: cd packages/backend && yarn build
       - run: |
           gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
