@@ -1,9 +1,13 @@
 import { User } from '@prisma/client'
+import { Inject } from '@nestjs/common'
 
 import { PrismaService } from '../common/prisma.service'
 
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @Inject(PrismaService)
+    private prisma: PrismaService
+  ) {}
 
   async findOneById(id: string) {
     return this.prisma.user.findUnique({ where: { id } })

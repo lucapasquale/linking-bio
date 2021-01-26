@@ -1,9 +1,13 @@
 import { Page } from '@prisma/client'
+import { Inject } from '@nestjs/common'
 
 import { PrismaService } from '../common/prisma.service'
 
 export class PagesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @Inject(PrismaService)
+    private prisma: PrismaService
+  ) {}
 
   async findOneBySlug(slug: string) {
     return this.prisma.page.findUnique({ where: { slug } })

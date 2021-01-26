@@ -1,19 +1,22 @@
 import { Link } from '@prisma/client'
+import { Inject } from '@nestjs/common'
 
 import { PrismaService } from '~common/prisma.service'
 
 export class LinksService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @Inject(PrismaService)
+    private prisma: PrismaService
+  ) {}
 
   async findOne(id: string) {
-    console.log('this', this.prisma)
     return this.prisma.link.findUnique({ where: { id } })
   }
 
   async findFromPage(pageId: string) {
     return this.prisma.link.findMany({
       where: { pageId },
-      orderBy: { sortOrder: 'asc', createdAt: 'desc' },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
     })
   }
 
