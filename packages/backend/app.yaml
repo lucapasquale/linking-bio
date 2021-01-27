@@ -1,5 +1,8 @@
 runtime: nodejs12
 
+skip_files:
+ - ^node_modules$
+ - ^dist$
+
 env_variables:
-  NODE_ENV: production
   PORT: 8080
