@@ -1,4 +1,4 @@
-import { Link } from '@prisma/client'
+import { Link } from '~prisma/generated/client'
 import { Inject } from '@nestjs/common'
 
 import { PrismaService } from '~common/prisma.service'

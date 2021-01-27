@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { User } from '~prisma/generated/client'
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Args, Field, ObjectType, Mutation, InputType } from '@nestjs/graphql'
 

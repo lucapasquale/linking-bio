@@ -1,5 +1,5 @@
 import * as uuid from 'uuid'
-import { User } from '@prisma/client'
+import { User } from '~prisma/generated/client'
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Mutation, Args, ObjectType, Field, InputType } from '@nestjs/graphql'
 

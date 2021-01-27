@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt'
-import { Page, User } from '@prisma/client'
+import { Page, User } from '~prisma/generated/client'
 import { JwtService } from '@nestjs/jwt'
 import { Injectable, HttpService } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'

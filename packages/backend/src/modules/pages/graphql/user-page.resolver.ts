@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { User } from '~prisma/generated/client'
 import { Resolver, ResolveField, Parent } from '@nestjs/graphql'
 
 import { PagesService } from '../pages.service'
