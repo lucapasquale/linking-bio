@@ -6,7 +6,7 @@
     "node": "12.x.x"
   },
   "scripts": {
-    "prebuild": "rimraf dist && prisma generate",
+    "prebuild": "rimraf dist && yarn prisma generate",
     "build": "nest build",
     "gcp-build": "yarn build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
