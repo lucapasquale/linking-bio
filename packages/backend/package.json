@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist && prisma generate",
     "build": "nest build",
+    "gcp-build": "npm run build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/main.js",
     "dev": "NODE_ENV=dev nest start --watch",
