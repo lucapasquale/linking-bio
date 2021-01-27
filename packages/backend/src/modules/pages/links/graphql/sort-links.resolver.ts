@@ -1,23 +1,23 @@
 import * as R from 'ramda'
 import * as Bluebird from 'bluebird'
+import { User } from '@prisma/client'
 import { Resolver, Mutation, Args, Field, ObjectType, ID } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
-import { User } from '~users/entities/user.entity'
-import { Page } from '~pages/entities/page.entity'
 import { PagesService } from '~pages/pages.service'
 
 import { LinksService } from '../links.service'
+import { PageType } from '../../graphql/types/page.type'
 
 @ObjectType()
 export class SortLinkResponse {
-  @Field(() => Page)
-  page: Page
+  @Field(() => PageType)
+  page: PageType
 }
 
-@Resolver(() => Page)
+@Resolver(() => PageType)
 export class SortLinksResolver {
   constructor(private pagesService: PagesService, private linksService: LinksService) {}
 

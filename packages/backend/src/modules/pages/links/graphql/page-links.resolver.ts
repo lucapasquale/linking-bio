@@ -1,10 +1,10 @@
 import { Resolver, ResolveField, Parent, Field, ObjectType } from '@nestjs/graphql'
 
 import { SocialLink } from '~users/graphql/types/social-link.type'
-import { Page } from '~pages/entities/page.entity'
 
-import { Link } from '../entities/link.entity'
+import { LinkType } from './types/link.type'
 import { LinksService } from '../links.service'
+import { PageType } from '../../graphql/types/page.type'
 
 @ObjectType()
 export class Owner {
@@ -18,12 +18,12 @@ export class Owner {
   social: SocialLink[]
 }
 
-@Resolver(() => Page)
+@Resolver(() => PageType)
 export class PageLinksResolver {
   constructor(private linksService: LinksService) {}
 
-  @ResolveField(() => [Link])
-  async links(@Parent() page: Page) {
+  @ResolveField(() => [LinkType])
+  async links(@Parent() page: PageType) {
     return this.linksService.findFromPage(page.id)
   }
 }

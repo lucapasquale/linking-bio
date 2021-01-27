@@ -1,9 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { UsersModule } from '~users/users.module'
-
-import { Page } from './entities/page.entity'
+import { CommonModule } from '~common/common.module'
 
 import { PagesService } from './pages.service'
 import { PagesResolver } from './graphql/pages.resolver'
@@ -11,8 +9,8 @@ import { UserPageResolver } from './graphql/user-page.resolver'
 import { UpdatePageResolver } from './graphql/update-page.resolver'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Page]), forwardRef(() => UsersModule)],
+  imports: [CommonModule, forwardRef(() => UsersModule)],
   providers: [PagesService, PagesResolver, UpdatePageResolver, UserPageResolver],
-  exports: [TypeOrmModule, PagesService],
+  exports: [PagesService],
 })
 export class PagesModule {}

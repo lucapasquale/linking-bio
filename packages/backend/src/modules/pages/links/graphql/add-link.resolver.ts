@@ -1,14 +1,15 @@
+import { User } from '@prisma/client'
 import { Resolver, Mutation, Args, InputType, Field, ObjectType } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
-import { User } from '~users/entities/user.entity'
-import { Page } from '~pages/entities/page.entity'
+
 import { PagesService } from '~pages/pages.service'
 
-import { Link } from '../entities/link.entity'
+import { LinkType } from './types/link.type'
 import { LinksService } from '../links.service'
+import { PageType } from '../../graphql/types/page.type'
 
 @InputType()
 class AddLinkInput {
@@ -21,14 +22,14 @@ class AddLinkInput {
 
 @ObjectType()
 class AddLinkResponse {
-  @Field(() => Page)
-  page: Page
+  @Field(() => PageType)
+  page: PageType
 
-  @Field(() => Link)
-  link: Link
+  @Field(() => LinkType)
+  link: LinkType
 }
 
-@Resolver(() => Page)
+@Resolver(() => PageType)
 export class AddLinkResolver {
   constructor(private pagesService: PagesService, private linksService: LinksService) {}
 
@@ -38,8 +39,9 @@ export class AddLinkResolver {
     const page = await this.pagesService.findOneByUserId(user.id)
     const links = await this.linksService.findFromPage(page.id)
 
-    const link = await this.linksService.insertLink(page.id, {
+    const link = await this.linksService.insertLink({
       ...input,
+      pageId: page.id,
       sortOrder: links.length,
     })
 

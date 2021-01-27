@@ -1,10 +1,11 @@
+import { Page } from '@prisma/client'
 import { Resolver, Query, Args, ResolveField, Parent, Field, ObjectType } from '@nestjs/graphql'
 
 import { UsersService } from '~users/users.service'
 import { SocialLink } from '~users/graphql/types/social-link.type'
 
 import { PagesService } from '../pages.service'
-import { Page } from '../entities/page.entity'
+import { PageType } from './types/page.type'
 
 @ObjectType()
 export class Owner {
@@ -18,11 +19,11 @@ export class Owner {
   social: SocialLink[]
 }
 
-@Resolver(() => Page)
+@Resolver(() => PageType)
 export class PagesResolver {
   constructor(private pagesService: PagesService, private userService: UsersService) {}
 
-  @Query(() => Page, { nullable: true })
+  @Query(() => PageType, { nullable: true })
   async page(@Args('slug') slug: string) {
     return this.pagesService.findOneBySlug(slug)
   }
