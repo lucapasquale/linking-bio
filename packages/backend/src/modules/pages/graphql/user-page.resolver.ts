@@ -1,9 +1,10 @@
-import { User } from '~prisma/generated/client'
 import { Resolver, ResolveField, Parent } from '@nestjs/graphql'
+
+import { User } from '~prisma/generated/client'
+import { UserType } from '~users/graphql/types/user.type'
 
 import { PagesService } from '../pages.service'
 import { PageType } from './types/page.type'
-import { UserType } from '../../users/graphql/types/user.type'
 
 @Resolver(() => UserType)
 export class UserPageResolver {

@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcrypt'
-import { Page, User } from '~prisma/generated/client'
 import { JwtService } from '@nestjs/jwt'
 import { Injectable, HttpService } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
+import { Page, User } from '~prisma/generated/client'
 import { UsersService } from '~users/users.service'
 
 @Injectable()

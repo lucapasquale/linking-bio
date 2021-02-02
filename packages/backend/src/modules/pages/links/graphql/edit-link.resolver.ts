@@ -1,14 +1,14 @@
-import { User } from '~prisma/generated/client'
 import { Resolver, Mutation, Args, InputType, Field, ID, ObjectType } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
+import { User } from '~prisma/generated/client'
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
 import { PagesService } from '~pages/pages.service'
+import { PageType } from '~pages/graphql/types/page.type'
 
 import { LinkType } from './types/link.type'
 import { LinksService } from '../links.service'
-import { PageType } from '../../graphql/types/page.type'
 
 @InputType()
 class EditLinkInput {

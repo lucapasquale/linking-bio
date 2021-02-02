@@ -12,8 +12,8 @@ import { UploadModule } from '~upload/upload.module'
   imports: [
     GraphQLModule.forRoot({
       introspection: true,
+      sortSchema: true,
       autoSchemaFile: true,
-      context: ({ req }) => ({ req }),
       engine: { reportSchema: true, graphVariant: 'current' },
     }),
 

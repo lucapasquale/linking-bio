@@ -1,6 +1,6 @@
-import { Page } from '~prisma/generated/client'
 import { Resolver, Query, Args, ResolveField, Parent, Field, ObjectType } from '@nestjs/graphql'
 
+import { Page } from '~prisma/generated/client'
 import { UsersService } from '~users/users.service'
 import { SocialLink } from '~users/graphql/types/social-link.type'
 
