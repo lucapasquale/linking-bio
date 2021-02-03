@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client'
 import { RemoveLinkMutation, RemoveLinkMutationVariables } from '~helpers/graphql/generated'
 
 const REMOVE_LINK_MUTATION = gql`
-  mutation RemoveLink($linkId: ID!) {
+  mutation RemoveLink($linkId: Int!) {
     removeLink(linkId: $linkId) {
       link {
         id

@@ -1,9 +1,9 @@
-import { ObjectType, ID, Field, Int } from '@nestjs/graphql'
+import { ObjectType, Int, Field } from '@nestjs/graphql'
 
-@ObjectType()
+@ObjectType('Link')
 export class LinkType {
-  @Field(() => ID)
-  id: string
+  @Field(() => Int)
+  id: number
 
   @Field(() => String)
   title: string

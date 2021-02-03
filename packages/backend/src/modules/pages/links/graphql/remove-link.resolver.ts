@@ -1,14 +1,14 @@
-import { User } from '~prisma/generated/client'
-import { Resolver, Mutation, Args, Field, ID, ObjectType } from '@nestjs/graphql'
+import { Resolver, Mutation, Args, Field, Int, ObjectType } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
+import { User } from '~prisma/generated/client'
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
 import { PagesService } from '~pages/pages.service'
+import { PageType } from '~pages/graphql/types/page.type'
 
 import { LinkType } from './types/link.type'
 import { LinksService } from '../links.service'
-import { PageType } from '../../graphql/types/page.type'
 
 @ObjectType()
 class RemoveLinkResponse {
@@ -25,7 +25,7 @@ export class RemoveLinksResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => RemoveLinkResponse)
-  async removeLink(@CurrentUser() user: User, @Args('linkId', { type: () => ID }) linkId: string) {
+  async removeLink(@CurrentUser() user: User, @Args('linkId', { type: () => Int }) linkId: number) {
     const [page, existingLink] = await Promise.all([
       this.pagesService.findOneByUserId(user.id),
       this.linksService.findOne(linkId),

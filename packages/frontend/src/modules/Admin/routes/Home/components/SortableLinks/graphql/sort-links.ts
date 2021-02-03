@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client'
 import { SortLinksMutationVariables, SortLinksMutation } from '~helpers/graphql/generated'
 
 const MUTATION = gql`
-  mutation SortLinks($linkIds: [ID!]!) {
+  mutation SortLinks($linkIds: [Int!]!) {
     sortLinks(linkIds: $linkIds) {
       page {
         links {

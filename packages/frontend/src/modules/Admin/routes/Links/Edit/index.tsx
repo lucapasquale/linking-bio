@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type Props = {
-  linkId: string
+  linkId: number
 }
 
 export const EditLink: FC<Props> = ({ linkId }) => {

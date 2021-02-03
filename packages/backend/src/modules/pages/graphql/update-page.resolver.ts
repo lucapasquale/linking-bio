@@ -1,7 +1,7 @@
-import { User } from '~prisma/generated/client'
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Args, Field, ObjectType, Mutation, InputType } from '@nestjs/graphql'
 
+import { User } from '~prisma/generated/client'
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
 
@@ -10,7 +10,7 @@ import { PageTheme } from '../enums/page-theme.enum'
 import { PageType } from './types/page.type'
 
 @InputType()
-class UpdatePageInput {
+export class UpdatePageInput {
   @Field(() => PageTheme, { nullable: true })
   theme?: PageTheme
 }

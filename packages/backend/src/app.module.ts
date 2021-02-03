@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 
 import { AuthModule } from '~auth/auth.module'
@@ -10,11 +11,17 @@ import { UploadModule } from '~upload/upload.module'
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({
-      introspection: true,
-      autoSchemaFile: true,
-      context: ({ req }) => ({ req }),
-      engine: { reportSchema: true, graphVariant: 'current' },
+    GraphQLModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        introspection: true,
+        sortSchema: true,
+        autoSchemaFile: true,
+        engine:
+          config.get('env') === 'production'
+            ? { reportSchema: true, graphVariant: 'current' }
+            : false,
+      }),
     }),
 
     AuthModule,

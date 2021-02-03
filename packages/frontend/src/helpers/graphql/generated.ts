@@ -1,5 +1,7 @@
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -9,77 +11,45 @@ export type Scalars = {
   Float: number;
 };
 
-export type SocialLink = {
-  __typename?: 'SocialLink';
-  kind: SocialLinkKind;
-  username: Scalars['String'];
+export type AddLinkInput = {
+  title: Scalars['String'];
   url: Scalars['String'];
 };
 
-export enum SocialLinkKind {
-  Facebook = 'FACEBOOK',
-  Instagram = 'INSTAGRAM',
-  Linkedin = 'LINKEDIN',
-  Reddit = 'REDDIT',
-  Tiktok = 'TIKTOK',
-  Twitter = 'TWITTER',
-  Youtube = 'YOUTUBE'
-}
-
-export type User = {
-  __typename?: 'User';
-  id: Scalars['ID'];
-  social: Array<SocialLink>;
+export type AddLinkResponse = {
+  __typename?: 'AddLinkResponse';
+  link: Link;
   page: Page;
+};
+
+export type ChangePasswordResponse = {
+  __typename?: 'ChangePasswordResponse';
+  success: Scalars['Boolean'];
+};
+
+export type EditLinkInput = {
+  id: Scalars['Int'];
+  title?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type EditLinkResponse = {
+  __typename?: 'EditLinkResponse';
+  link: Link;
+  page: Page;
+};
+
+export type ForgotPasswordResponse = {
+  __typename?: 'ForgotPasswordResponse';
+  success: Scalars['Boolean'];
 };
 
 export type Link = {
   __typename?: 'Link';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
+  sortOrder: Scalars['Int'];
   title: Scalars['String'];
   url: Scalars['String'];
-  sortOrder: Scalars['Int'];
-};
-
-export type Page = {
-  __typename?: 'Page';
-  id: Scalars['ID'];
-  slug: Scalars['String'];
-  theme: PageTheme;
-  owner: Owner;
-  links: Array<Link>;
-};
-
-export enum PageTheme {
-  Dark = 'DARK',
-  Light = 'LIGHT',
-  Red = 'RED',
-  Pink = 'PINK',
-  Tan = 'TAN',
-  Forest = 'FOREST'
-}
-
-export type Owner = {
-  __typename?: 'Owner';
-  name: Scalars['String'];
-  avatarUrl?: Maybe<Scalars['String']>;
-  social: Array<SocialLink>;
-};
-
-export type UpdatePageResponse = {
-  __typename?: 'UpdatePageResponse';
-  page: Page;
-};
-
-export type UpdateProfileResponse = {
-  __typename?: 'UpdateProfileResponse';
-  user: User;
-};
-
-export type SignupResponse = {
-  __typename?: 'SignupResponse';
-  accessToken: Scalars['String'];
-  refreshToken: Scalars['String'];
 };
 
 export type LoginResponse = {
@@ -88,14 +58,129 @@ export type LoginResponse = {
   refreshToken: Scalars['String'];
 };
 
-export type ChangePasswordResponse = {
-  __typename?: 'ChangePasswordResponse';
-  success: Scalars['Boolean'];
+export type Mutation = {
+  __typename?: 'Mutation';
+  addLink: AddLinkResponse;
+  changePassword: ChangePasswordResponse;
+  editLink: EditLinkResponse;
+  forgotPassword: ForgotPasswordResponse;
+  login: LoginResponse;
+  recoverPassword: RecoverPasswordResponse;
+  refreshToken: RefreshTokenResponse;
+  removeLink: RemoveLinkResponse;
+  signup: SignupResponse;
+  sortLinks: SortLinkResponse;
+  updatePage: UpdatePageResponse;
+  updateProfile: UpdateProfileResponse;
+  uploadImage: UploadImageResponse;
 };
 
-export type ForgotPasswordResponse = {
-  __typename?: 'ForgotPasswordResponse';
-  success: Scalars['Boolean'];
+
+export type MutationAddLinkArgs = {
+  input: AddLinkInput;
+};
+
+
+export type MutationChangePasswordArgs = {
+  password: Scalars['String'];
+};
+
+
+export type MutationEditLinkArgs = {
+  input: EditLinkInput;
+};
+
+
+export type MutationForgotPasswordArgs = {
+  email: Scalars['String'];
+};
+
+
+export type MutationLoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type MutationRecoverPasswordArgs = {
+  input: RecoverPasswordInput;
+};
+
+
+export type MutationRefreshTokenArgs = {
+  token: Scalars['String'];
+};
+
+
+export type MutationRemoveLinkArgs = {
+  linkId: Scalars['Int'];
+};
+
+
+export type MutationSignupArgs = {
+  input: SignupInput;
+};
+
+
+export type MutationSortLinksArgs = {
+  linkIds: Array<Scalars['Int']>;
+};
+
+
+export type MutationUpdatePageArgs = {
+  input: UpdatePageInput;
+};
+
+
+export type MutationUpdateProfileArgs = {
+  input: UpdateProfileInput;
+};
+
+
+export type MutationUploadImageArgs = {
+  image: Scalars['String'];
+};
+
+export type Owner = {
+  __typename?: 'Owner';
+  avatarUrl?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  social: Array<SocialLink>;
+};
+
+export type Page = {
+  __typename?: 'Page';
+  id: Scalars['Int'];
+  links: Array<Link>;
+  owner: Owner;
+  slug: Scalars['String'];
+  theme: PageTheme;
+};
+
+export enum PageTheme {
+  Dark = 'DARK',
+  Forest = 'FOREST',
+  Light = 'LIGHT',
+  Pink = 'PINK',
+  Red = 'RED',
+  Tan = 'TAN'
+}
+
+export type Query = {
+  __typename?: 'Query';
+  page?: Maybe<Page>;
+  user: User;
+};
+
+
+export type QueryPageArgs = {
+  slug: Scalars['String'];
+};
+
+export type RecoverPasswordInput = {
+  newPassword: Scalars['String'];
+  recoveryToken: Scalars['String'];
+  slug: Scalars['String'];
 };
 
 export type RecoverPasswordResponse = {
@@ -110,136 +195,65 @@ export type RefreshTokenResponse = {
   refreshToken: Scalars['String'];
 };
 
-export type AddLinkResponse = {
-  __typename?: 'AddLinkResponse';
-  page: Page;
-  link: Link;
-};
-
-export type EditLinkResponse = {
-  __typename?: 'EditLinkResponse';
-  page: Page;
-  link: Link;
-};
-
 export type RemoveLinkResponse = {
   __typename?: 'RemoveLinkResponse';
-  page: Page;
   link: Link;
+  page: Page;
 };
+
+export type SignupInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  slug: Scalars['String'];
+};
+
+export type SignupResponse = {
+  __typename?: 'SignupResponse';
+  accessToken: Scalars['String'];
+  refreshToken: Scalars['String'];
+};
+
+export type SocialLink = {
+  __typename?: 'SocialLink';
+  kind: SocialLinkKind;
+  url: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export enum SocialLinkKind {
+  Facebook = 'FACEBOOK',
+  Instagram = 'INSTAGRAM',
+  Linkedin = 'LINKEDIN',
+  Reddit = 'REDDIT',
+  Tiktok = 'TIKTOK',
+  Twitter = 'TWITTER',
+  Youtube = 'YOUTUBE'
+}
 
 export type SortLinkResponse = {
   __typename?: 'SortLinkResponse';
   page: Page;
 };
 
-export type UploadImageResponse = {
-  __typename?: 'UploadImageResponse';
-  slug: Scalars['String'];
-};
-
-export type Query = {
-  __typename?: 'Query';
-  page?: Maybe<Page>;
-  user: User;
-};
-
-
-export type QueryPageArgs = {
-  slug: Scalars['String'];
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  updatePage: UpdatePageResponse;
-  updateProfile: UpdateProfileResponse;
-  signup: SignupResponse;
-  login: LoginResponse;
-  changePassword: ChangePasswordResponse;
-  forgotPassword: ForgotPasswordResponse;
-  recoverPassword: RecoverPasswordResponse;
-  refreshToken: RefreshTokenResponse;
-  addLink: AddLinkResponse;
-  editLink: EditLinkResponse;
-  removeLink: RemoveLinkResponse;
-  sortLinks: SortLinkResponse;
-  uploadImage: UploadImageResponse;
-};
-
-
-export type MutationUpdatePageArgs = {
-  input: UpdatePageInput;
-};
-
-
-export type MutationUpdateProfileArgs = {
-  input: UpdateProfileInput;
-};
-
-
-export type MutationSignupArgs = {
-  input: SignupInput;
-};
-
-
-export type MutationLoginArgs = {
-  password: Scalars['String'];
-  email: Scalars['String'];
-};
-
-
-export type MutationChangePasswordArgs = {
-  password: Scalars['String'];
-};
-
-
-export type MutationForgotPasswordArgs = {
-  email: Scalars['String'];
-};
-
-
-export type MutationRecoverPasswordArgs = {
-  input: RecoverPasswordInput;
-};
-
-
-export type MutationRefreshTokenArgs = {
-  token: Scalars['String'];
-};
-
-
-export type MutationAddLinkArgs = {
-  input: AddLinkInput;
-};
-
-
-export type MutationEditLinkArgs = {
-  input: EditLinkInput;
-};
-
-
-export type MutationRemoveLinkArgs = {
-  linkId: Scalars['ID'];
-};
-
-
-export type MutationSortLinksArgs = {
-  linkIds: Array<Scalars['ID']>;
-};
-
-
-export type MutationUploadImageArgs = {
-  image: Scalars['String'];
-};
-
 export type UpdatePageInput = {
   theme?: Maybe<PageTheme>;
 };
 
+export type UpdatePageResponse = {
+  __typename?: 'UpdatePageResponse';
+  page: Page;
+};
+
 export type UpdateProfileInput = {
-  name?: Maybe<Scalars['String']>;
   avatarUrl?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   social?: Maybe<Array<UpdateProfileSocialsInput>>;
+};
+
+export type UpdateProfileResponse = {
+  __typename?: 'UpdateProfileResponse';
+  user: User;
 };
 
 export type UpdateProfileSocialsInput = {
@@ -247,29 +261,23 @@ export type UpdateProfileSocialsInput = {
   value: Scalars['String'];
 };
 
-export type SignupInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+export type UploadImageResponse = {
+  __typename?: 'UploadImageResponse';
   slug: Scalars['String'];
-  name: Scalars['String'];
 };
 
-export type RecoverPasswordInput = {
-  slug: Scalars['String'];
-  newPassword: Scalars['String'];
-  recoveryToken: Scalars['String'];
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Int'];
+  page: Page;
+  role: UserRole;
+  social: Array<SocialLink>;
 };
 
-export type AddLinkInput = {
-  title: Scalars['String'];
-  url: Scalars['String'];
-};
-
-export type EditLinkInput = {
-  id: Scalars['ID'];
-  title?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-};
+export enum UserRole {
+  Admin = 'ADMIN',
+  User = 'USER'
+}
 
 export type RefreshTokenMutationVariables = Exact<{
   token: Scalars['String'];
@@ -326,7 +334,7 @@ export type UserPageQuery = (
 );
 
 export type SortLinksMutationVariables = Exact<{
-  linkIds: Array<Scalars['ID']>;
+  linkIds: Array<Scalars['Int']> | Scalars['Int'];
 }>;
 
 
@@ -383,7 +391,7 @@ export type EditLinkMutation = (
 );
 
 export type RemoveLinkMutationVariables = Exact<{
-  linkId: Scalars['ID'];
+  linkId: Scalars['Int'];
 }>;
 
 

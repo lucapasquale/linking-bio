@@ -1,7 +1,7 @@
-import { User } from '~prisma/generated/client'
 import { Inject } from '@nestjs/common'
 
-import { PrismaService } from '../common/prisma.service'
+import { User } from '~prisma/generated/client'
+import { PrismaService } from '~common/prisma.service'
 
 export class UsersService {
   constructor(
@@ -9,7 +9,7 @@ export class UsersService {
     private prisma: PrismaService
   ) {}
 
-  async findOneById(id: string) {
+  async findOneById(id: number) {
     return this.prisma.user.findUnique({ where: { id } })
   }
 
@@ -26,7 +26,7 @@ export class UsersService {
   }
 
   async update(user: User, payload: Partial<User>) {
-    return this.prisma.page.update({
+    return this.prisma.user.update({
       where: { id: user.id },
       data: { ...payload },
     })
