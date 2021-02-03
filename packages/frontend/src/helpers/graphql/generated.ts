@@ -18,8 +18,8 @@ export type AddLinkInput = {
 
 export type AddLinkResponse = {
   __typename?: 'AddLinkResponse';
-  link: LinkType;
-  page: PageType;
+  link: Link;
+  page: Page;
 };
 
 export type ChangePasswordResponse = {
@@ -35,8 +35,8 @@ export type EditLinkInput = {
 
 export type EditLinkResponse = {
   __typename?: 'EditLinkResponse';
-  link: LinkType;
-  page: PageType;
+  link: Link;
+  page: Page;
 };
 
 export type ForgotPasswordResponse = {
@@ -44,8 +44,8 @@ export type ForgotPasswordResponse = {
   success: Scalars['Boolean'];
 };
 
-export type LinkType = {
-  __typename?: 'LinkType';
+export type Link = {
+  __typename?: 'Link';
   id: Scalars['Int'];
   sortOrder: Scalars['Int'];
   title: Scalars['String'];
@@ -148,6 +148,15 @@ export type Owner = {
   social: Array<SocialLink>;
 };
 
+export type Page = {
+  __typename?: 'Page';
+  id: Scalars['Int'];
+  links: Array<Link>;
+  owner: Owner;
+  slug: Scalars['String'];
+  theme: PageTheme;
+};
+
 export enum PageTheme {
   Dark = 'DARK',
   Forest = 'FOREST',
@@ -157,19 +166,10 @@ export enum PageTheme {
   Tan = 'TAN'
 }
 
-export type PageType = {
-  __typename?: 'PageType';
-  id: Scalars['Int'];
-  links: Array<LinkType>;
-  owner: Owner;
-  slug: Scalars['String'];
-  theme: PageTheme;
-};
-
 export type Query = {
   __typename?: 'Query';
-  page?: Maybe<PageType>;
-  user: UserType;
+  page?: Maybe<Page>;
+  user: User;
 };
 
 
@@ -197,8 +197,8 @@ export type RefreshTokenResponse = {
 
 export type RemoveLinkResponse = {
   __typename?: 'RemoveLinkResponse';
-  link: LinkType;
-  page: PageType;
+  link: Link;
+  page: Page;
 };
 
 export type SignupInput = {
@@ -233,7 +233,7 @@ export enum SocialLinkKind {
 
 export type SortLinkResponse = {
   __typename?: 'SortLinkResponse';
-  page: PageType;
+  page: Page;
 };
 
 export type UpdatePageInput = {
@@ -242,7 +242,7 @@ export type UpdatePageInput = {
 
 export type UpdatePageResponse = {
   __typename?: 'UpdatePageResponse';
-  page: PageType;
+  page: Page;
 };
 
 export type UpdateProfileInput = {
@@ -253,7 +253,7 @@ export type UpdateProfileInput = {
 
 export type UpdateProfileResponse = {
   __typename?: 'UpdateProfileResponse';
-  user: UserType;
+  user: User;
 };
 
 export type UpdateProfileSocialsInput = {
@@ -266,18 +266,18 @@ export type UploadImageResponse = {
   slug: Scalars['String'];
 };
 
+export type User = {
+  __typename?: 'User';
+  id: Scalars['Int'];
+  page: Page;
+  role: UserRole;
+  social: Array<SocialLink>;
+};
+
 export enum UserRole {
   Admin = 'ADMIN',
   User = 'USER'
 }
-
-export type UserType = {
-  __typename?: 'UserType';
-  id: Scalars['Int'];
-  page: PageType;
-  role: UserRole;
-  social: Array<SocialLink>;
-};
 
 export type RefreshTokenMutationVariables = Exact<{
   token: Scalars['String'];
@@ -298,11 +298,11 @@ export type UserSlugQueryVariables = Exact<{ [key: string]: never; }>;
 export type UserSlugQuery = (
   { __typename?: 'Query' }
   & { user: (
-    { __typename?: 'UserType' }
-    & Pick<UserType, 'id'>
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
     & { page: (
-      { __typename?: 'PageType' }
-      & Pick<PageType, 'slug'>
+      { __typename?: 'Page' }
+      & Pick<Page, 'slug'>
     ) }
   ) }
 );
@@ -313,11 +313,11 @@ export type UserPageQueryVariables = Exact<{ [key: string]: never; }>;
 export type UserPageQuery = (
   { __typename?: 'Query' }
   & { user: (
-    { __typename?: 'UserType' }
-    & Pick<UserType, 'id'>
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
     & { page: (
-      { __typename?: 'PageType' }
-      & Pick<PageType, 'slug' | 'theme'>
+      { __typename?: 'Page' }
+      & Pick<Page, 'slug' | 'theme'>
       & { owner: (
         { __typename?: 'Owner' }
         & Pick<Owner, 'name' | 'avatarUrl'>
@@ -326,8 +326,8 @@ export type UserPageQuery = (
           & Pick<SocialLink, 'kind' | 'username' | 'url'>
         )> }
       ), links: Array<(
-        { __typename?: 'LinkType' }
-        & Pick<LinkType, 'id' | 'url' | 'title' | 'sortOrder'>
+        { __typename?: 'Link' }
+        & Pick<Link, 'id' | 'url' | 'title' | 'sortOrder'>
       )> }
     ) }
   ) }
@@ -343,10 +343,10 @@ export type SortLinksMutation = (
   & { sortLinks: (
     { __typename?: 'SortLinkResponse' }
     & { page: (
-      { __typename?: 'PageType' }
+      { __typename?: 'Page' }
       & { links: Array<(
-        { __typename?: 'LinkType' }
-        & Pick<LinkType, 'id' | 'title' | 'sortOrder'>
+        { __typename?: 'Link' }
+        & Pick<Link, 'id' | 'title' | 'sortOrder'>
       )> }
     ) }
   ) }
@@ -362,11 +362,11 @@ export type AddLinkMutation = (
   & { addLink: (
     { __typename?: 'AddLinkResponse' }
     & { link: (
-      { __typename?: 'LinkType' }
-      & Pick<LinkType, 'id' | 'url' | 'title'>
+      { __typename?: 'Link' }
+      & Pick<Link, 'id' | 'url' | 'title'>
     ), page: (
-      { __typename?: 'PageType' }
-      & Pick<PageType, 'slug'>
+      { __typename?: 'Page' }
+      & Pick<Page, 'slug'>
     ) }
   ) }
 );
@@ -381,11 +381,11 @@ export type EditLinkMutation = (
   & { editLink: (
     { __typename?: 'EditLinkResponse' }
     & { link: (
-      { __typename?: 'LinkType' }
-      & Pick<LinkType, 'id' | 'url' | 'title'>
+      { __typename?: 'Link' }
+      & Pick<Link, 'id' | 'url' | 'title'>
     ), page: (
-      { __typename?: 'PageType' }
-      & Pick<PageType, 'slug'>
+      { __typename?: 'Page' }
+      & Pick<Page, 'slug'>
     ) }
   ) }
 );
@@ -400,11 +400,11 @@ export type RemoveLinkMutation = (
   & { removeLink: (
     { __typename?: 'RemoveLinkResponse' }
     & { link: (
-      { __typename?: 'LinkType' }
-      & Pick<LinkType, 'id'>
+      { __typename?: 'Link' }
+      & Pick<Link, 'id'>
     ), page: (
-      { __typename?: 'PageType' }
-      & Pick<PageType, 'slug'>
+      { __typename?: 'Page' }
+      & Pick<Page, 'slug'>
     ) }
   ) }
 );
@@ -432,8 +432,8 @@ export type UpdateProfileMutation = (
   & { updateProfile: (
     { __typename?: 'UpdateProfileResponse' }
     & { user: (
-      { __typename?: 'UserType' }
-      & Pick<UserType, 'id'>
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
     ) }
   ) }
 );
@@ -461,8 +461,8 @@ export type UpdatePageMutation = (
   & { updatePage: (
     { __typename?: 'UpdatePageResponse' }
     & { page: (
-      { __typename?: 'PageType' }
-      & Pick<PageType, 'slug' | 'theme'>
+      { __typename?: 'Page' }
+      & Pick<Page, 'slug' | 'theme'>
     ) }
   ) }
 );
@@ -528,8 +528,8 @@ export type GetPageQueryVariables = Exact<{
 export type GetPageQuery = (
   { __typename?: 'Query' }
   & { page?: Maybe<(
-    { __typename?: 'PageType' }
-    & Pick<PageType, 'slug' | 'theme'>
+    { __typename?: 'Page' }
+    & Pick<Page, 'slug' | 'theme'>
     & { owner: (
       { __typename?: 'Owner' }
       & Pick<Owner, 'name' | 'avatarUrl'>
@@ -538,8 +538,8 @@ export type GetPageQuery = (
         & Pick<SocialLink, 'kind' | 'username' | 'url'>
       )> }
     ), links: Array<(
-      { __typename?: 'LinkType' }
-      & Pick<LinkType, 'id' | 'url' | 'title' | 'sortOrder'>
+      { __typename?: 'Link' }
+      & Pick<Link, 'id' | 'url' | 'title' | 'sortOrder'>
     )> }
   )> }
 );

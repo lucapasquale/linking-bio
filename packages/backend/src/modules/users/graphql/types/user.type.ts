@@ -3,7 +3,7 @@ import { ObjectType, Int, Field } from '@nestjs/graphql'
 import { UserRole } from '../../enums/user-role.enum'
 import { SocialLink } from './social-link.type'
 
-@ObjectType()
+@ObjectType('User')
 export class UserType {
   @Field(() => Int)
   id: number

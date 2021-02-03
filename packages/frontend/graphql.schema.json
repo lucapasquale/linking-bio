@@ -71,7 +71,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "LinkType",
+                "name": "Link",
                 "ofType": null
               }
             },
@@ -87,7 +87,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "PageType",
+                "name": "Page",
                 "ofType": null
               }
             },
@@ -206,7 +206,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "LinkType",
+                "name": "Link",
                 "ofType": null
               }
             },
@@ -222,7 +222,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "PageType",
+                "name": "Page",
                 "ofType": null
               }
             },
@@ -264,7 +264,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "LinkType",
+        "name": "Link",
         "description": null,
         "fields": [
           {
@@ -880,55 +880,8 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "PageTheme",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "DARK",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "FOREST",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "LIGHT",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PINK",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "RED",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "TAN",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
-        "name": "PageType",
+        "name": "Page",
         "description": null,
         "fields": [
           {
@@ -962,7 +915,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "LinkType",
+                    "name": "Link",
                     "ofType": null
                   }
                 }
@@ -1026,6 +979,53 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "PageTheme",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "FOREST",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PINK",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "RED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "Query",
         "description": null,
@@ -1051,7 +1051,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "PageType",
+              "name": "Page",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1066,7 +1066,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "UserType",
+                "name": "User",
                 "ofType": null
               }
             },
@@ -1232,7 +1232,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "LinkType",
+                "name": "Link",
                 "ofType": null
               }
             },
@@ -1248,7 +1248,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "PageType",
+                "name": "Page",
                 "ofType": null
               }
             },
@@ -1497,7 +1497,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "PageType",
+                "name": "Page",
                 "ofType": null
               }
             },
@@ -1545,7 +1545,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "PageType",
+                "name": "Page",
                 "ofType": null
               }
             },
@@ -1621,7 +1621,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "UserType",
+                "name": "User",
                 "ofType": null
               }
             },
@@ -1701,31 +1701,8 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "UserRole",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "ADMIN",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "USER",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
-        "name": "UserType",
+        "name": "User",
         "description": null,
         "fields": [
           {
@@ -1753,7 +1730,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "PageType",
+                "name": "Page",
                 "ofType": null
               }
             },
@@ -1804,6 +1781,29 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "UserRole",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ADMIN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "USER",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
