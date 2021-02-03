@@ -26,7 +26,7 @@ export class UsersService {
   }
 
   async update(user: User, payload: Partial<User>) {
-    return this.prisma.page.update({
+    return this.prisma.user.update({
       where: { id: user.id },
       data: { ...payload },
     })
