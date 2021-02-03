@@ -1,7 +1,7 @@
 import * as R from 'ramda'
 import * as Bluebird from 'bluebird'
 import { User } from '~prisma/generated/client'
-import { Resolver, Mutation, Args, Field, ObjectType, ID } from '@nestjs/graphql'
+import { Resolver, Mutation, Args, Field, ObjectType, Int } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
@@ -25,7 +25,7 @@ export class SortLinksResolver {
   @Mutation(() => SortLinkResponse)
   async sortLinks(
     @CurrentUser() user: User,
-    @Args('linkIds', { type: () => [ID] }) linkIds: string[]
+    @Args('linkIds', { type: () => [Int] }) linkIds: number[]
   ) {
     const page = await this.pagesService.findOneByUserId(user.id)
     const links = await this.linksService.findFromPage(page.id)

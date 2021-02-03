@@ -9,7 +9,7 @@ export class UsersService {
     private prisma: PrismaService
   ) {}
 
-  async findOneById(id: string) {
+  async findOneById(id: number) {
     return this.prisma.user.findUnique({ where: { id } })
   }
 

@@ -1,12 +1,12 @@
-import { ObjectType, ID, Field } from '@nestjs/graphql'
+import { ObjectType, Int, Field } from '@nestjs/graphql'
 
 import { UserRole } from '../../enums/user-role.enum'
 import { SocialLink } from './social-link.type'
 
 @ObjectType()
 export class UserType {
-  @Field(() => ID)
-  id: string
+  @Field(() => Int)
+  id: number
 
   @Field(() => UserRole)
   role: UserRole

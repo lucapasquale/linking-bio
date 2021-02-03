@@ -9,11 +9,11 @@ export class LinksService {
     private prisma: PrismaService
   ) {}
 
-  async findOne(id: string) {
+  async findOne(id: number) {
     return this.prisma.link.findUnique({ where: { id } })
   }
 
-  async findFromPage(pageId: string) {
+  async findFromPage(pageId: number) {
     return this.prisma.link.findMany({
       where: { pageId },
       orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
@@ -31,7 +31,7 @@ export class LinksService {
     })
   }
 
-  async deleteLink(id: string) {
+  async deleteLink(id: number) {
     return this.prisma.link.delete({ where: { id } })
   }
 }

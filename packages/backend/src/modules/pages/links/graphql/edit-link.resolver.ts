@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args, InputType, Field, ID, ObjectType } from '@nestjs/graphql'
+import { Resolver, Mutation, Args, InputType, Field, Int, ObjectType } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
 import { User } from '~prisma/generated/client'
@@ -12,8 +12,8 @@ import { LinksService } from '../links.service'
 
 @InputType()
 class EditLinkInput {
-  @Field(() => ID)
-  id: string
+  @Field(() => Int)
+  id: number
 
   @Field(() => String, { nullable: true })
   title: string

@@ -13,7 +13,7 @@ export class PagesService {
     return this.prisma.page.findUnique({ where: { slug } })
   }
 
-  async findOneByUserId(userId: string) {
+  async findOneByUserId(userId: number) {
     return this.prisma.page.findUnique({ where: { userId } })
   }
 

@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args, Field, ID, ObjectType } from '@nestjs/graphql'
+import { Resolver, Mutation, Args, Field, Int, ObjectType } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
 import { User } from '~prisma/generated/client'
@@ -25,7 +25,7 @@ export class RemoveLinksResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => RemoveLinkResponse)
-  async removeLink(@CurrentUser() user: User, @Args('linkId', { type: () => ID }) linkId: string) {
+  async removeLink(@CurrentUser() user: User, @Args('linkId', { type: () => Int }) linkId: number) {
     const [page, existingLink] = await Promise.all([
       this.pagesService.findOneByUserId(user.id),
       this.linksService.findOne(linkId),

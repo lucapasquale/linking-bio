@@ -14,11 +14,11 @@ describe('SortLinksResolver', () => {
   let findLinksFromPageSpy: jest.SpyInstance
   let updateLinkSpy: jest.SpyInstance
 
-  const USER = { id: '1' } as User
-  const testPage = { id: '11' } as Page
+  const USER = { id: 1 } as User
+  const testPage = { id: 11 } as Page
   const testLinks = [
-    { id: '101', title: 'Link 1' },
-    { id: '102', title: 'Link 2' },
+    { id: 101, title: 'Link 1' },
+    { id: 102, title: 'Link 2' },
   ] as Link[]
 
   beforeEach(async () => {
@@ -50,7 +50,8 @@ describe('SortLinksResolver', () => {
 
   describe('sortLinks', () => {
     test('should update sortOrder of each link', async () => {
-      const response = await resolver.sortLinks(USER, [testLinks[1].id, testLinks[0].id])
+      const linkIds = [testLinks[1].id, testLinks[0].id]
+      const response = await resolver.sortLinks(USER, linkIds)
       expect(response).toStrictEqual({ page: testPage })
 
       expect(findPageByUserSpy).toHaveBeenCalledTimes(1)
@@ -65,31 +66,31 @@ describe('SortLinksResolver', () => {
     })
 
     test('should throw if not sending all linkIds', async () => {
-      const links = [testLinks[1].id]
+      const linkIds = [testLinks[1].id]
 
-      await expect(resolver.sortLinks(USER, links)).rejects.toThrowError('invalid links')
+      await expect(resolver.sortLinks(USER, linkIds)).rejects.toThrowError('invalid links')
 
       expect(updateLinkSpy).toHaveBeenCalledTimes(0)
     })
 
     test('should throw if sending more than existing linkIds', async () => {
-      const links = [testLinks[1].id, testLinks[0].id, 'INVALID_ID']
+      const linkIds = [testLinks[1].id, testLinks[0].id, -1]
 
-      await expect(resolver.sortLinks(USER, links)).rejects.toThrowError('invalid links')
+      await expect(resolver.sortLinks(USER, linkIds)).rejects.toThrowError('invalid links')
       expect(updateLinkSpy).toHaveBeenCalledTimes(0)
     })
 
     test('should throw if sending ids not found on page link ids', async () => {
-      const links = [testLinks[1].id, 'INVALID_ID']
+      const linkIds = [testLinks[1].id, -1]
 
-      await expect(resolver.sortLinks(USER, links)).rejects.toThrowError('invalid links')
+      await expect(resolver.sortLinks(USER, linkIds)).rejects.toThrowError('invalid links')
       expect(updateLinkSpy).toHaveBeenCalledTimes(0)
     })
 
     test('should throw if sending same id multiple times', async () => {
-      const links = [testLinks[1].id, testLinks[1].id]
+      const linkIds = [testLinks[1].id, testLinks[1].id]
 
-      await expect(resolver.sortLinks(USER, links)).rejects.toThrowError('invalid links')
+      await expect(resolver.sortLinks(USER, linkIds)).rejects.toThrowError('invalid links')
       expect(updateLinkSpy).toHaveBeenCalledTimes(0)
     })
   })
