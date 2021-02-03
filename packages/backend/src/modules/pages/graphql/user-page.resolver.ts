@@ -3,15 +3,15 @@ import { Resolver, ResolveField, Parent } from '@nestjs/graphql'
 import { User } from '~prisma/generated/client'
 import { UserType } from '~users/graphql/types/user.type'
 
-import { PagesService } from '../pages.service'
+import { PagesLoaders } from '../pages.loader'
 import { PageType } from './types/page.type'
 
 @Resolver(() => UserType)
 export class UserPageResolver {
-  constructor(private pagesService: PagesService) {}
+  constructor(private pagesLoaders: PagesLoaders) {}
 
   @ResolveField(() => PageType)
   async page(@Parent() user: User) {
-    return this.pagesService.findOneByUserId(user.id)
+    return this.pagesLoaders.findByUserId.load(user.id)
   }
 }
