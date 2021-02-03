@@ -23,7 +23,7 @@ export const SortableLinks: FC<Props> = ({ page }) => {
     }
 
     await sortLinks({
-      variables: { linkIds: links.map((link) => Number(link.id)) },
+      variables: { linkIds: links.map((link) => link.id) },
     })
 
     showSnackbar('Links reordered!')
