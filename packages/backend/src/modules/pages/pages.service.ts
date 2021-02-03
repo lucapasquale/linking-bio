@@ -17,6 +17,12 @@ export class PagesService {
     return this.prisma.page.findUnique({ where: { userId } })
   }
 
+  async findByUserIds(userIds: number[]) {
+    return this.prisma.page.findMany({
+      where: { userId: { in: userIds } },
+    })
+  }
+
   async create(page: Pick<Page, 'slug' | 'userId'>) {
     return this.prisma.page.create({ data: { ...page } })
   }
