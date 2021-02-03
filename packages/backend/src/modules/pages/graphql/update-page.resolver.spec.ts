@@ -12,7 +12,7 @@ describe('UpdateProfileResolver', () => {
   let findPageByUserSpy: jest.SpyInstance
   let pageUpdateSpy: jest.SpyInstance
 
-  const USER = { id: '1' } as User
+  const USER = { id: 1 } as User
   const testPage = { slug: 'my-page', theme: PageTheme.LIGHT } as Page
 
   beforeEach(async () => {
