@@ -13,7 +13,7 @@ export default function Page() {
 
   return (
     <PageContainer title="Edit Link">
-      <EditLink linkId={router.query.id} />
+      <EditLink linkId={Number(router.query.id)} />
     </PageContainer>
   )
 }
