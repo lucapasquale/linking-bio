@@ -28,7 +28,7 @@ export type ChangePasswordResponse = {
 };
 
 export type EditLinkInput = {
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
 };
@@ -46,7 +46,7 @@ export type ForgotPasswordResponse = {
 
 export type LinkType = {
   __typename?: 'LinkType';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   sortOrder: Scalars['Int'];
   title: Scalars['String'];
   url: Scalars['String'];
@@ -113,7 +113,7 @@ export type MutationRefreshTokenArgs = {
 
 
 export type MutationRemoveLinkArgs = {
-  linkId: Scalars['ID'];
+  linkId: Scalars['Int'];
 };
 
 
@@ -123,7 +123,7 @@ export type MutationSignupArgs = {
 
 
 export type MutationSortLinksArgs = {
-  linkIds: Array<Scalars['ID']>;
+  linkIds: Array<Scalars['Int']>;
 };
 
 
@@ -159,7 +159,7 @@ export enum PageTheme {
 
 export type PageType = {
   __typename?: 'PageType';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   links: Array<LinkType>;
   owner: Owner;
   slug: Scalars['String'];
@@ -273,7 +273,7 @@ export enum UserRole {
 
 export type UserType = {
   __typename?: 'UserType';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   page: PageType;
   role: UserRole;
   social: Array<SocialLink>;
@@ -334,7 +334,7 @@ export type UserPageQuery = (
 );
 
 export type SortLinksMutationVariables = Exact<{
-  linkIds: Array<Scalars['ID']> | Scalars['ID'];
+  linkIds: Array<Scalars['Int']> | Scalars['Int'];
 }>;
 
 
@@ -391,7 +391,7 @@ export type EditLinkMutation = (
 );
 
 export type RemoveLinkMutationVariables = Exact<{
-  linkId: Scalars['ID'];
+  linkId: Scalars['Int'];
 }>;
 
 
