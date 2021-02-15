@@ -1,6 +1,6 @@
 import { Resolver, ResolveField, Parent } from '@nestjs/graphql'
+import { User } from '@prisma/client'
 
-import { User } from '~prisma/generated/client'
 import { UserType } from '~users/graphql/types/user.type'
 
 import { PagesLoaders } from '../pages.loader'

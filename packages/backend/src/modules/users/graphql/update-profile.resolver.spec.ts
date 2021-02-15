@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing'
+import { User } from '@prisma/client'
 
-import { User } from '~prisma/generated/client'
 import { PrismaService } from '~common/prisma.service'
 
 import { UsersService } from '../users.service'

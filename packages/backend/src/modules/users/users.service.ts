@@ -1,6 +1,6 @@
+import { User, Prisma } from '@prisma/client'
 import { Inject } from '@nestjs/common'
 
-import { User } from '~prisma/generated/client'
 import { PrismaService } from '~common/prisma.service'
 
 export class UsersService {
@@ -29,6 +29,12 @@ export class UsersService {
     return this.prisma.user.update({
       where: { id: user.id },
       data: { ...payload },
+    })
+  }
+
+  async findMany(where: Prisma.UserWhereInput) {
+    return this.prisma.user.findMany({
+      where,
     })
   }
 }

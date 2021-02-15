@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Args, Field, ObjectType, Mutation, InputType } from '@nestjs/graphql'
+import { User } from '@prisma/client'
 
-import { User } from '~prisma/generated/client'
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
 

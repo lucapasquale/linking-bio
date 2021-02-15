@@ -12,7 +12,12 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }))
 
   const configService = app.get(ConfigService)
-  await app.listen(configService.get<number>('port'))
+  const port = configService.get<number>('port')
+
+  await app.listen(port)
+
+  const logger = await app.resolve(Logger)
+  logger.log(`Started process on localhost:${port}`)
 }
 
 bootstrap()

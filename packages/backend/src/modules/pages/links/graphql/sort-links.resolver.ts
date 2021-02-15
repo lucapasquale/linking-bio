@@ -1,8 +1,8 @@
 import * as R from 'ramda'
 import * as Bluebird from 'bluebird'
-import { User } from '~prisma/generated/client'
 import { Resolver, Mutation, Args, Field, ObjectType, Int } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
+import { User } from '@prisma/client'
 
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
