@@ -7,7 +7,6 @@
     "build": "nest build",
     "gcp-build": "yarn build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "prestart": "prisma generate",
     "start": "node dist/main.js",
     "dev": "NODE_ENV=dev nest start --watch",
     "start:debug": "nest start --debug --watch",
