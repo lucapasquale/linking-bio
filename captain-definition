@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 2,
+  "dockerfileLines": [
+    "FROM node:12-buster-slim AS base",
+    "RUN apt-get update && apt-get install --no-install-recommends --yes openssl",
+
+    "COPY ./app /app",
+
+    "CMD [\"node\", \"app/dist/main.js\"]"
+  ]
+}
