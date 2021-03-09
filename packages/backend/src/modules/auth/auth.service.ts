@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt'
 import { Injectable, HttpService } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
-import { Page, User } from '~prisma/generated/client'
+import { Page, User } from '@prisma/client'
 import { UsersService } from '~users/users.service'
 
 @Injectable()

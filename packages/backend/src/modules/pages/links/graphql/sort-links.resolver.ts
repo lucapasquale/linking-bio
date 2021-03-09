@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import * as Bluebird from 'bluebird'
-import { User } from '~prisma/generated/client'
+import { User } from '@prisma/client'
 import { Resolver, Mutation, Args, Field, ObjectType, Int } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 

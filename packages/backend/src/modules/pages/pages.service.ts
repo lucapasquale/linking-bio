@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common'
 
-import { Page } from '~prisma/generated/client'
+import { Page } from '@prisma/client'
 import { PrismaService } from '~common/prisma.service'
 
 export class PagesService {
