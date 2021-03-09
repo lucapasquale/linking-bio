@@ -4,6 +4,18 @@ on:
     branches:
       - main
 jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: floms/action-caprover@v1
+      with:
+        app: 'linking-bio-api'
+        host: 'https://captain.lucapasquale.dev'
+        password: '${{ secrets.CAPROVER_PASSWORD }}'
+        branch: 'main'
+
   deploy-frontend:
     name: Deploy Frontend
     runs-on: ubuntu-latest

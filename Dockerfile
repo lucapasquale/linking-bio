@@ -1,30 +1,22 @@
-# ---- Build Stage ----
-FROM node:12.13-alpine AS build
+# ---- Base Stage ----
+FROM node:12-buster-slim AS base
 
+RUN apt-get update && apt-get install --no-install-recommends --yes openssl
+
+WORKDIR /app
+
+
+# ---- Application Stage ----
+FROM base AS final
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
+COPY packages/backend/*.json ./packages/backend/
 
-RUN yarn install
+RUN yarn install --pure-lockfile
 
-COPY . .
+COPY packages/backend/ ./packages/backend/
 
 RUN yarn workspace backend build
 
-# ---- Application Stage ----
-FROM node:12.13-alpine AS production
-
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /usr/src/app
-
-COPY package.json yarn.lock ./
-
-RUN yarn install --only=production
-
-COPY . .
-
-COPY --from=build /usr/src/app/packages/backend/dist ./packages/backend/dist
-
-CMD ["node", "packages/backend/dist/main"]
+CMD ["node", "packages/backend/dist/main.js"]
