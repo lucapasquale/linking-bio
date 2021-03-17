@@ -7,6 +7,8 @@ jobs:
   migrate-db:
     name: Migrate Database
     runs-on: ubuntu-latest
+    env:
+      PG_URI: ${{ secrets.PG_URI }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -14,7 +16,7 @@ jobs:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
-      - run: PG_URI=${{ secrets.PG_URI }} yarn prisma migrate deploy
+      - run: yarn prisma migrate deploy
 
   deploy-backend:
     name: Deploy Backend
