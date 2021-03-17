@@ -21,7 +21,7 @@ model User {
   role           String   @default("USER")
   page           Page?
 
-  @@index([email])
+  @@index([email], name: "users.email_index")
   @@map("users")
 }
 
@@ -35,7 +35,7 @@ model Page {
   users     User     @relation(fields: [userId], references: [id])
   links     Link[]
 
-  @@index([slug])
+  @@index([slug], name: "pages.slug_index")
   @@map("pages")
 }
 
@@ -49,6 +49,6 @@ model Link {
   pageId    Int      @map("page_id")
   page      Page     @relation(fields: [pageId], references: [id])
 
-  @@index([pageId])
+  @@index([pageId], name: "links.page_id_index")
   @@map("links")
 }

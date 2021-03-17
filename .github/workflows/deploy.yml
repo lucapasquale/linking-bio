@@ -4,8 +4,21 @@ on:
     branches:
       - main
 jobs:
+  migrate-db:
+    name: Migrate Database
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - uses: c-hive/gha-yarn-cache@v1
+      - run: yarn install
+      - run: yarn prisma migrate deploy
+
   deploy-backend:
     name: Deploy Backend
+    needs: migrate-db
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
