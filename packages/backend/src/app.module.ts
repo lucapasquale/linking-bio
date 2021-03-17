@@ -18,7 +18,7 @@ import { UploadModule } from '~upload/upload.module'
         introspection: true,
         sortSchema: true,
         autoSchemaFile:
-          config.get('env') === 'production' ? false : join(process.cwd(), 'src/schema.gql'),
+          config.get('env') === 'production' ? true : join(process.cwd(), 'src/schema.gql'),
         engine:
           config.get('env') === 'production'
             ? { reportSchema: true, graphVariant: 'current' }
