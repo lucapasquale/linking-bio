@@ -4,8 +4,29 @@ on:
     branches:
       - main
 jobs:
+  deploy-backend:
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: zxyle/publish-gae-action@master
+        name: Initialize Google Cloud SDK
+        with:
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          gae_variables: ${{ secrets.GAE_VARIABLES }}
+          gae_config_path: './packages/backend/app.yaml'
+
+      - run: |
+          gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
+          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+          cd packages/backend
+          gcloud app deploy app.yaml --promote
+
   deploy-frontend:
     name: Deploy Frontend
+    needs: deploy-backend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
