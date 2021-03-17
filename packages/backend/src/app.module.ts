@@ -17,7 +17,8 @@ import { UploadModule } from '~upload/upload.module'
       useFactory: (config: ConfigService) => ({
         introspection: true,
         sortSchema: true,
-        autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+        autoSchemaFile:
+          config.get('env') === 'production' ? false : join(process.cwd(), 'src/schema.gql'),
         engine:
           config.get('env') === 'production'
             ? { reportSchema: true, graphVariant: 'current' }
