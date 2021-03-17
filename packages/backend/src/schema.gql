@@ -2,75 +2,84 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type SocialLink {
-  kind: SocialLinkKind!
-  username: String!
-  url: String!
-}
-
-enum SocialLinkKind {
-  INSTAGRAM
-  TWITTER
-  FACEBOOK
-}
-
-type User {
-  id: ID!
-  social: [SocialLink!]!
-  page: Page!
-}
-
-type Page {
-  slug: String!
-  backgroundUrl: String
-  owner: Owner!
-  links: [Link!]!
-}
-
-type Link {
-  id: ID!
+input AddLinkInput {
   title: String!
   url: String!
 }
 
-type Owner {
-  name: String!
-  avatarUrl: String
-  social: [SocialLink!]!
-}
-
-type LinkResponse {
-  page: Page!
+type AddLinkResponse {
   link: Link!
-}
-
-type UpdateProfileResponse {
   page: Page!
-  user: User!
-}
-
-type SignupResponse {
-  token: String!
-}
-
-type LoginResponse {
-  token: String!
 }
 
 type ChangePasswordResponse {
   success: Boolean!
 }
 
+input EditLinkInput {
+  id: Int!
+  title: String
+  url: String
+}
+
+type EditLinkResponse {
+  link: Link!
+  page: Page!
+}
+
 type ForgotPasswordResponse {
   success: Boolean!
 }
 
-type RecoverPasswordResponse {
-  token: String!
+type Link {
+  id: Int!
+  sortOrder: Int!
+  title: String!
+  url: String!
 }
 
-type UploadImageResponse {
+type LoginResponse {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type Mutation {
+  addLink(input: AddLinkInput!): AddLinkResponse!
+  changePassword(password: String!): ChangePasswordResponse!
+  editLink(input: EditLinkInput!): EditLinkResponse!
+  forgotPassword(email: String!): ForgotPasswordResponse!
+  login(email: String!, password: String!): LoginResponse!
+  recoverPassword(input: RecoverPasswordInput!): RecoverPasswordResponse!
+  refreshToken(token: String!): RefreshTokenResponse!
+  removeLink(linkId: Int!): RemoveLinkResponse!
+  signup(input: SignupInput!): SignupResponse!
+  sortLinks(linkIds: [Int!]!): SortLinkResponse!
+  updatePage(input: UpdatePageInput!): UpdatePageResponse!
+  updateProfile(input: UpdateProfileInput!): UpdateProfileResponse!
+  uploadImage(image: String!): UploadImageResponse!
+}
+
+type Owner {
+  avatarUrl: String
+  name: String!
+  social: [SocialLink!]!
+}
+
+type Page {
+  id: Int!
+  links: [Link!]!
+  owner: Owner!
   slug: String!
+  theme: PageTheme!
+}
+
+enum PageTheme {
+  DARK
+  FOREST
+  LIGHT
+  PINK
+  RED
+  TAN
 }
 
 type Query {
@@ -78,47 +87,94 @@ type Query {
   user: User!
 }
 
-type Mutation {
-  addLink(input: AddLinkInput!): LinkResponse!
-  editLink(input: EditLinkInput!): LinkResponse!
-  removeLink(linkId: ID!): LinkResponse!
-  updateProfile(input: UpdateProfileInput!): UpdateProfileResponse!
-  signup(input: SignupInput!): SignupResponse!
-  login(password: String!, email: String!): LoginResponse!
-  changePassword(password: String!): ChangePasswordResponse!
-  forgotPassword(email: String!): ForgotPasswordResponse!
-  recoverPassword(input: RecoverPasswordInput!): RecoverPasswordResponse!
-  uploadImage(image: String!): UploadImageResponse!
+input RecoverPasswordInput {
+  newPassword: String!
+  recoveryToken: String!
+  slug: String!
 }
 
-input AddLinkInput {
-  title: String!
-  url: String!
+type RecoverPasswordResponse {
+  accessToken: String!
+  refreshToken: String!
 }
 
-input EditLinkInput {
-  id: ID!
-  title: String
-  url: String
+type RefreshTokenResponse {
+  accessToken: String!
+  refreshToken: String!
 }
 
-input UpdateProfileInput {
-  avatarUrl: String
-  backgroundUrl: String
-  twitter: String
-  facebook: String
-  instagram: String
+type RemoveLinkResponse {
+  link: Link!
+  page: Page!
 }
 
 input SignupInput {
   email: String!
+  name: String!
   password: String!
   slug: String!
-  name: String!
 }
 
-input RecoverPasswordInput {
+type SignupResponse {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type SocialLink {
+  kind: SocialLinkKind!
+  url: String!
+  username: String!
+}
+
+enum SocialLinkKind {
+  FACEBOOK
+  INSTAGRAM
+  LINKEDIN
+  REDDIT
+  TIKTOK
+  TWITTER
+  YOUTUBE
+}
+
+type SortLinkResponse {
+  page: Page!
+}
+
+input UpdatePageInput {
+  theme: PageTheme
+}
+
+type UpdatePageResponse {
+  page: Page!
+}
+
+input UpdateProfileInput {
+  avatarUrl: String
+  name: String
+  social: [UpdateProfileSocialsInput!]
+}
+
+type UpdateProfileResponse {
+  user: User!
+}
+
+input UpdateProfileSocialsInput {
+  kind: SocialLinkKind!
+  value: String!
+}
+
+type UploadImageResponse {
   slug: String!
-  newPassword: String!
-  recoveryToken: String!
+}
+
+type User {
+  id: Int!
+  page: Page!
+  role: UserRole!
+  social: [SocialLink!]!
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }

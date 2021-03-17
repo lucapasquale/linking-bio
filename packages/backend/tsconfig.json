@@ -8,12 +8,12 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
+    "skipLibCheck": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "paths": {
       "~prisma/*": ["./prisma/*"],
-
       "~auth/*": ["./src/modules/auth/*"],
       "~common/*": ["./src/modules/common/*"],
       "~pages/*": ["./src/modules/pages/*"],
