@@ -1,7 +1,7 @@
 import { Resolver, Mutation, Args, Field, Int, ObjectType } from '@nestjs/graphql'
 import { UseGuards } from '@nestjs/common'
 
-import { User } from '@prisma/client'
+import { User } from '~prisma/generated/client'
 import { GqlAuthGuard } from '~auth/graphql/jwt-auth.guard'
 import { CurrentUser } from '~users/graphql/current-user.decorator'
 import { PagesService } from '~pages/pages.service'

@@ -1,7 +1,7 @@
 import * as DataLoader from 'dataloader'
 import { Injectable, Scope } from '@nestjs/common'
 
-import { Page } from '@prisma/client'
+import { Page } from '~prisma/generated/client'
 import { PagesService } from './pages.service'
 
 @Injectable({ scope: Scope.REQUEST })

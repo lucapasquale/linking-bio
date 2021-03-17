@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing'
 
-import { User, Page, Link } from '@prisma/client'
+import { User, Page, Link } from '~prisma/generated/client'
 import { PrismaService } from '~common/prisma.service'
 
 import { SortLinksResolver } from './sort-links.resolver'
