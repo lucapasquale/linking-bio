@@ -14,7 +14,7 @@ jobs:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
-      - run: yarn prisma migrate deploy
+      - run: PG_URI=${{ secrets.PG_URI }} yarn prisma migrate deploy
 
   deploy-backend:
     name: Deploy Backend
