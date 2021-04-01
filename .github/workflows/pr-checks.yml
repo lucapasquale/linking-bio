@@ -11,7 +11,7 @@ jobs:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
-      - run: yarn workspaces run lint
+      - run: yarn workspaces foreach run lint
 
   build:
     name: Build
@@ -23,7 +23,7 @@ jobs:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
-      - run: yarn workspaces run build
+      - run: yarn workspaces foreach run build
 
   test:
     name: Test
@@ -35,4 +35,4 @@ jobs:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
-      - run: yarn workspaces run test
+      - run: yarn workspaces foreach run test
