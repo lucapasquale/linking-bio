@@ -16,7 +16,7 @@ jobs:
           node-version: '12'
       - uses: c-hive/gha-yarn-cache@v1
       - run: yarn install
-      - run: yarn prisma migrate deploy
+      - run: yarn dlx prisma migrate deploy --schema packages/backend/prisma/schema.prisma
 
   deploy-backend:
     name: Deploy Backend
